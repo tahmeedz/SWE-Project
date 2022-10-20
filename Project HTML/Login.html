@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Log In </title>
+    <style>
+        #mylink {
+            font-size: 25px;
+        }
+        body{
+            background-image: url('https://images2.alphacoders.com/862/862730.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+        form{
+            background-color: rgba(255,255,255,.5);
+            display: inline-block;
+            margin-top: 7%;
+        }
+        
+        .button {
+            background-color: black;
+            /* border: none; */
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+        .return{
+            background-color:rgba(255,255,255,.5) ;
+            /* border: none; */
+            color: black;
+            padding: 8px 16px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+
+<body align='center'>
+    <header>
+        <h1 h1 style="color: whitesmoke;font-size: 70px; text-decoration: underline;">Login</h1>
+    </header>
+
+    <form action="/login" method="POST">
+        <fieldset>
+
+            <label>Username</label>
+            <input type="text" id='username' name="username" required>
+            <br><br>
+
+            <label>Password</label>
+            <input type="password" id="password" name="password" required>
+            <br><br>
+
+            <button class="button" type="reset">Reset</button>
+            <button class="button" type="submit">Login</button>
+        </fieldset>
+    </form>
+    <br><br>
+    <a href="./Home.html">
+        <button class="return">Return Home</button>
+        
+    </a>
+    <a href="./Register.html">
+        <button class="return">Register</button>
+        
+    </a>
+</body>
+
+</html>
