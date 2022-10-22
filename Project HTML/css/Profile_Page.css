@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+body {
+  margin: 0;
+  font: 'poppins';
+}
+
+.header {
+  background-color: #414b4e;
+  padding: 2em;
+  margin: 2em;
+  text-align: center;
+}
+
+.home {
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+/*# sourceMappingURL=Profile_Page.css.map */
