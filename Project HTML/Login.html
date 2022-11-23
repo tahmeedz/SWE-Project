@@ -38,7 +38,25 @@
             text-align: center;
             font-size: 14px;
         }
+
+        #message {
+            background-color: yellow;
+        }
+
     </style>
+    <script defer>
+
+    window.onload = function() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const error = urlParams.get('error')
+        console.log(error);
+        console.log(error == 'invalid_username_password');
+        if(error == 'invalid_username_password') {
+            document.getElementById('message').innerHTML = "Wrong Username/Password!";
+        }   
+    }
+    </script>
 </head>
 
 
@@ -66,14 +84,15 @@
         </fieldset>
     </form>
     <br><br>
-    <a href="./Home.html">
+    <label id="message"></label>
+    <br><br>
+    <a href="/">
         <button class="return">Return Home</button>
-        
     </a>
-    <a href="./Register.html">
+    <a href="./register">
         <button class="return">Register</button>
-        
     </a>
+
 </body>
 
 </html>

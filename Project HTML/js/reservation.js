@@ -4,6 +4,7 @@ reservationForm.addEventListener("submit", reservation);
 
 
 function reservation(event) {
+    console.log('awais!');
     event.preventDefault();
 
     const name = event.target[0].value;
@@ -70,11 +71,5 @@ function reservation(event) {
     } else {
         document.getElementById("error-msg").innerHTML = "Enter valid card information."
     }
-
-
-    
-    
-    
-    
 }
 

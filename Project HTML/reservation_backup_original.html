@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Reservation </title>
+        <style>
+            #mylink {
+                font-size: 25px;
+            }
+            body{
+                background-image: url('https://media.istockphoto.com/photos/reserved-sign-on-restaurant-table-with-bar-background-picture-id912129754?k=20&m=912129754&s=612x612&w=0&h=1hn7DA0tG1c4Ujw6_2Dei0rGasEXfNRxrmuSi8CLMi4=');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: 100% 100%;
+            }
+            form{
+                background-color: rgba(0,0,0,.5);
+                display: inline-block;
+                margin-top: 7%;
+                color: white;
+            }
+        </style>
+    </head>
+
+    <header>
+        <h1 style="color: black;font-size: 70px; text-decoration: underline; text-align: center;">Find Your Reservation Today!</h1>
+    </header>
+    <body align = 'center'>
+        <form>
+            <fieldset>
+                <label>Name</label>
+                <input type="text" id='name' name="name" required>
+                <br><br>
+
+                <label>Phone Number</label>
+                <input type="text" id="phone" name="phone" required>
+                <br><br>
+                
+                <label>Email Address</label>
+                <input type="text" id="email" name="email" required>
+                <br><br>
+
+                <label>Date and Time</label>
+                <input type="datetime-local" id="date" name="date" required>
+                <br><br>
+
+                <label>Number of Guests</label>
+                <input type="number" id="number" name="number" required>
+                <br><br>
+
+                <button class="button" type="reset">Reset</button>
+                <button class="button" type="submit">Search</button>
+            </fieldset>
+        </form>
+
+    </body>
+    
+</html>
