@@ -9,6 +9,9 @@ const fs = require("fs");
 const bcrypt = require('bcrypt');
 const path = require("path");
 const bodyParser = require('body-parser');
+const db = require("./js/db_connection");
+const reservation = require('./js/reservation');
+const { user } = require('pg/lib/defaults');
 const server = http.createServer(app);
 module.exports = { app };
 
@@ -17,22 +20,6 @@ const users = new Map();
 // middleware
 app.use(cors());
 app.use(express.json()); //req.body
-
-// var sql = require("mssql");
-
-// Casey did the initial database configuration below which differs by group member
-// var dbConfig = {
-//     server: "localhost",
-//     user: "test",
-//     password: "dylan",
-//     database: "FuelApplication",
-//     trustServerCertificate: true,
-//     parseJson: true,
-
-// };
-let Results;
-// ROUTES
-//These routes are a combination of Casey and Dylan as we created, configured and deleted as needed.
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -60,25 +47,36 @@ app.get('/profile', (req, res) => {
 
 
 app.post('/registerUser', (req, res) => { 
-    users.set(req.body.username, req.body.password);
-    console.log(users);
+
+    console.log(req.body);
+
+    let username = req.body.username;
+    let password = req.body.password;
+
+    db.addUser(username, password);
+
+    db.runQuery("select * from users");
+
     res.redirect('/login');
+});
+
+app.post('/reserve', (req, res) => {
+
+    // console.log(req.body);
+    reservation.addBooking(req.body.number);
 });
 
 app.post('/login', (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
-    if(users.has(username)) {
-        let value = users.get(username);
-        console.log(value);
-        if (value === password) {
-            res.redirect('./reservation');
-        } else {
-            res.redirect("./login?error=invalid_username_password");
-        }
-    } else {
-        res.redirect("./login?error=invalid_username_password");
-    }
+
+    console.log(db.isValidUser(username, password, res));
+
+    // if(db.isValidUser(username, password, res)) {
+    //     res.redirect('./reservation');
+    // } else {
+    //     res.redirect("./login?error=invalid_username_password");
+    // }
 });
  
 // app.get('/register', function(req, res) {

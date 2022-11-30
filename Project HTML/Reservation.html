@@ -23,69 +23,69 @@
     </head>
     <script>
 
-        var tables = [[2, 10], [4, 10], [6, 10], [8, 10]];
+        // var tables = [[2, 10], [4, 10], [6, 10], [8, 10]];
 
-        window.onload = function() {
+        // window.onload = function() {
             
-            const reservationForm = document.getElementById("reservation-form");
+        //     const reservationForm = document.getElementById("reservation-form");
 
-            reservationForm.addEventListener("submit", reservation);
+        //     reservationForm.addEventListener("submit", reservation);
 
-            function reservation(event) {
-                event.preventDefault();
+        //     function reservation(event) {
+        //         event.preventDefault();
 
-                const name = event.target[0].value;
-                const phoneNumber = event.target[1].value;
-                const email = event.target[2].value;
-                const date = event.target[3].value;
-                const time = event.target[4].value;
-                var numOfPpl = event.target[5].value;
+        //         const name = event.target[0].value;
+        //         const phoneNumber = event.target[1].value;
+        //         const email = event.target[2].value;
+        //         const date = event.target[3].value;
+        //         const time = event.target[4].value;
+        //         var numOfPpl = event.target[5].value;
             
-                let tablesEligible = [];
-                var counter = 0;
-                while(numOfPpl > 0) {
+        //         let tablesEligible = [];
+        //         var counter = 0;
+        //         while(numOfPpl > 0) {
 
-                    if(numOfPpl <= 2 && tables[0][1]>0) {
-                        tablesEligible.push(2);
-                        tables[0][1]--;
-                        numOfPpl-=2;
-                    } else if(numOfPpl > 2 && numOfPpl <= 4 && tables[1][1]>0) {
-                        tablesEligible.push(4);
-                        tables[1][1]--;
-                        numOfPpl-=4;
-                    } else if (numOfPpl > 4 && numOfPpl <= 6 && tables[2][1]>0) {
-                        tablesEligible.push(6);
-                        tables[2][1]--;
-                        numOfPpl-=6;
-                    } else if (numOfPpl > 6 && tables[3][1]>0) {
-                        tablesEligible.push(8);
-                        tables[3][1]--;
-                        numOfPpl-=8;
-                    }else if (tables[0][1] <= 0 && tables[1][1] <= 0  && tables[2][1] <= 0 && tables[3][1] <= 0  ){
-                        break;
-                    }
-                    // console.log(tables);
-                    console.log(tablesEligible);
-                    // setTimeout(function() {}, 5000);
-                    counter++;
-                    if(counter > 50){
-                        break;
-                    }
+        //             if(numOfPpl <= 2 && tables[0][1]>0) {
+        //                 tablesEligible.push(2);
+        //                 tables[0][1]--;
+        //                 numOfPpl-=2;
+        //             } else if(numOfPpl > 2 && numOfPpl <= 4 && tables[1][1]>0) {
+        //                 tablesEligible.push(4);
+        //                 tables[1][1]--;
+        //                 numOfPpl-=4;
+        //             } else if (numOfPpl > 4 && numOfPpl <= 6 && tables[2][1]>0) {
+        //                 tablesEligible.push(6);
+        //                 tables[2][1]--;
+        //                 numOfPpl-=6;
+        //             } else if (numOfPpl > 6 && tables[3][1]>0) {
+        //                 tablesEligible.push(8);
+        //                 tables[3][1]--;
+        //                 numOfPpl-=8;
+        //             }else if (tables[0][1] <= 0 && tables[1][1] <= 0  && tables[2][1] <= 0 && tables[3][1] <= 0  ){
+        //                 break;
+        //             }
+        //             // console.log(tables);
+        //             console.log(tablesEligible);
+        //             // setTimeout(function() {}, 5000);
+        //             counter++;
+        //             if(counter > 50){
+        //                 break;
+        //             }
 
-                }
+        //         }
 
 
 
                 
-            }
-        }
+        //     }
+        // }
     </script>
 
     <header>
         <h1 style="color: black;font-size: 70px; text-decoration: underline; text-align: center;">Find Your Reservation Today!</h1>
     </header>
     <body align = 'center'>
-        <form id="reservation-form">
+        <form id="reservation-form" action="/reserve" method="POST">
             <fieldset>
                 <label>Name</label>
                 <input type="text" id='name' name="name" required>
