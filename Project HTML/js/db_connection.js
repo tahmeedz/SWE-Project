@@ -13,11 +13,8 @@ var connection = mysql.createConnection({
 connection.connect();
 
 module.exports = {
-    runQuery: function(query) {
-        connection.query(query, function (error, results, fields) {
-            if (error) throw error;
-            return results;
-        });
+    runQuery: function(query, callback) {
+        return connection.query(query, callback);
     },
 
     addUser: function(username, password) {

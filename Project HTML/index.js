@@ -25,6 +25,8 @@ app.use(express.json()); //req.body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, './client')));
 
+db.runQuery('UPDATE restaurant_table SET vacant = 1');
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './home.html'));
 });
@@ -48,8 +50,6 @@ app.get('/profile', (req, res) => {
 
 app.post('/registerUser', (req, res) => { 
 
-    console.log(req.body);
-
     let username = req.body.username;
     let password = req.body.password;
 
@@ -61,36 +61,13 @@ app.post('/registerUser', (req, res) => {
 });
 
 app.post('/reserve', (req, res) => {
-
-    // console.log(req.body);
     reservation.addBooking(req.body.number);
 });
 
 app.post('/login', (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
-
-    console.log(db.isValidUser(username, password, res));
-
-    // if(db.isValidUser(username, password, res)) {
-    //     res.redirect('./reservation');
-    // } else {
-    //     res.redirect("./login?error=invalid_username_password");
-    // }
 });
- 
-// app.get('/register', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/client/register.html'));
-// });
-// app.get('/profile', function(req, res) {
-//     res.render(__dirname + "/client/Profile_Page.html", { userName: userName, useradd1: useradd1, useradd2: useradd2, usercity:usercity, userstate:userstate, userzip:userzip });
-// });
-// app.get('/login', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/client/login.html'));
-// });
-// app.get('/fuel_quote', function(req, res) {
-//     res.render(__dirname + "/client/fuel.html", { userAddr: userAddr, inState: inState, hasHistory: hasHistory });
-// });
 
 
 app.listen(8080, () => {
