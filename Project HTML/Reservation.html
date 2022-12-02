@@ -16,14 +16,20 @@
             form{
                 background-color: rgba(0,0,0,.5);
                 display: inline-block;
-                margin-top: 7%;
+                margin: auto;
                 color: white;
+                
+
             }
             #overlay_success{
                 padding: 50px;
                 width: fit-content;
                 border-radius: 20px;
                 margin-left: 44%;
+            }
+            #prof{
+                color: #c60de6;
+                font-size: large;
             }
         </style>
     </head>
@@ -66,13 +72,21 @@
         }
 
     </script>
-
+    <div class = "navigator">
+        <a class = "profile" id="prof" href="/profile" style="text-align: 10px">Profile</a>
+    </div>
     <header>
         <h1 style="color: black;font-size: 70px; text-decoration: underline; text-align: center;">Find Your Reservation Today!</h1>
     </header>
+    <p style="font-size: larger; color: black">
+       Guest users click <a href="/register">here</a> to register!
+     </p>
+     <p style="font-size: x-large; color: red">
+        NO SHOW WILL INCUR A $10 FEE!!!
+      </p>
     <body align = 'center'>
         <div id="overlay_success">
-            <form id="reservation-form" action="/reserve" method="POST">
+            <form id="reservation-form" action="/reserve" method="POST" style="align-self:'center'">
                 <fieldset>
                     <label>Name</label>
                     <input type="text" id='name' name="name" placeholder="Name"   required>

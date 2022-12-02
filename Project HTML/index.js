@@ -1,5 +1,3 @@
-// This is the bulk of the backend, queries and all functions that end up in some html pages
-//Dylan did the first draft of this page including the extensions below and middleware.
 
 const express = require('express');
 const http = require('http');

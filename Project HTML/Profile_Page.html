@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
     <link rel="stylesheet" href="css/Profile_Page.css">
+    <style>
+    body{
+        background-image: url('https://media.istockphoto.com/photos/reserved-sign-on-restaurant-table-with-bar-background-picture-id912129754?k=20&m=912129754&s=612x612&w=0&h=1hn7DA0tG1c4Ujw6_2Dei0rGasEXfNRxrmuSi8CLMi4=');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+        color: red;
+    }
+</style>
 </head>
 
 <script>
@@ -18,7 +27,12 @@
         creditnum.style.display = "block";
         creditdate.style.display = "block";
         creditcode.style.display = "block";  
-        }   
+        }  
+    else{
+        creditnum.style.display = "none";
+        creditdate.style.display = "none";
+        creditcode.style.display = "none";
+    } 
     }
 
     function myFunction() {
@@ -31,11 +45,42 @@
                 textBil.value="";
         }
     }
+
+    
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+    window.onload = function() {
+
+        let name = decodeURIComponent(getCookie('name'));
+        let phone = decodeURIComponent(getCookie('phone'));
+        let ShippingAd = decodeURIComponent(getCookie('home_address'));
+        let BillingAd = decodeURIComponent(getCookie('billing_address'));
+        let DineNum = decodeURIComponent(getCookie('preferred_diner'));
+        let crednum = decodeURIComponent(getCookie('credit_card_number'));
+        let creddate = decodeURIComponent(getCookie('credit_card_expiration'));
+        let credcode = decodeURIComponent(getCookie('credit_card_cvv'));
+
+        document.getElementById('name').value = name ? name : '';
+        document.getElementById('phone').value = phone ? phone : '';
+        document.getElementById('ShippingAd').value = ShippingAd ? ShippingAd : '';
+        document.getElementById('BillingAd').value = BillingAd ? BillingAd : '';
+        document.getElementById('dinerNum').value = DineNum ? DineNum : '';
+        document.getElementById('crednum').value = crednum ? crednum : '';
+        document.getElementById('creddate').value = creddate ? creddate : '';
+        document.getElementById('credcode').value = credcode ? credcode : '';
+    }
+
 </script>
 
-<body>
+
+<body >
     <div class = "navigator">
-        <a class = "reservation" href="/">Reservation</a>
+        <a class = "reservation" href="/reservation">Reservation</a>
     </div>
     <div class = "header">
         <h1>Account Overview</h1>
@@ -61,8 +106,9 @@
                 <br/>
                 <textarea id="BillingAd" placeholder="Address, City, State, Zip Code" size = "100" required></textarea><br/>
             </div>
-            <div class = "dinerNumber">
+            <div class = "dinerNumber" id = "dinerNum">
                 <h2>Preffered Diner #: </h2> 
+                <input type = "Number" for="dinerNum">
             </div>
             <div class = "earnedPoints">
                 <h2>Earned Points: </h2>
