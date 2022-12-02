@@ -1,0 +1,36 @@
+<script>
+   function setCookie(params) {
+        var name            = params.name,
+            value           = params.value,
+            expireDays      = params.days,
+            expireHours     = params.hours,
+            expireMinutes   = params.minutes,
+            expireSeconds   = params.seconds;
+
+        var expireDate = new Date(new Date().getDate() -1);
+        console.log(expireDate)
+
+        document.cookie = name +"="+ escape(value) +
+            ";domain="+ window.location.hostname +
+            ";path=/"+
+            ";expires="+expireDate.toUTCString();
+    }
+
+    function deleteCookie(name) {
+        setCookie({name: name, value: "", seconds: 1});
+    }
+
+    deleteCookie('name');
+    deleteCookie('phone');
+    deleteCookie('email');
+    deleteCookie('credit_card_number');
+    deleteCookie('credit_card_expiration');
+    deleteCookie('credit_card_cvv');
+
+    window.location = '/';
+
+</script>
+
+<div>
+
+</div>

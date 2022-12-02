@@ -11,23 +11,18 @@ module.exports = {
         let allTablesMap = new Map();
 
         let callbackAllTables = function(err, results, fields) {
-            // console.log('gotcha again!');
-            // console.log(results);
 
-            console.log('before for loop');
             for(var i = 0 ; i<results.length ; i++) {
                 let item = results[i];
-
-                let entry = allTablesMap.get(item.capacity);
+                let capacityy = parseInt(item.capacity);
+                let entry = allTablesMap.get(capacityy);
                 if(entry) {
                     entry.push(item.table_number);
                 } else {
-                    allTablesMap.set(item.capacity, []);
-                    allTablesMap.get(item.capacity).push(item.table_number);
+                    allTablesMap.set(capacityy, []);
+                    allTablesMap.get(capacityy).push(item.table_number);
                 }
-                console.log('inside for loop');
             }
-            console.log('after for loop');
             let tablesInUse = findTable(allTablesMap, ppl);
             if(!tablesInUse) {
                 res.redirect('./reservation?tables_booked=No Reservations Available!');
@@ -55,6 +50,8 @@ module.exports = {
 
  function findTable(mapOfAvailableTables, capacity, res) {
     let tableIdsInUse = [];
+
+    capacity = parseInt(capacity);
 
     while(capacity >=1) {
         if(capacity >= 8) {
@@ -88,11 +85,11 @@ module.exports = {
                     tables.shift(0);
                 }
                 
-                
+                capacity-=largestTableAvailable;
                 if(mapOfAvailableTables.get(capacity) && mapOfAvailableTables.get(capacity).length == 0) {
                     mapOfAvailableTables.delete(capacity);
                 }
-                capacity-=largestTableAvailable;
+                
             } else {
                 capacity++;
             }

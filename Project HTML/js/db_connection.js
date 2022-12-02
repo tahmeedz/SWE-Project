@@ -35,12 +35,15 @@ module.exports = {
 
             if(results.length > 0) {
                 let user = results[0];
-                response.cookie('name', user.name);
-                response.cookie('phone', user.phone);
-                response.cookie('email', user.email);
-                response.cookie('credit_card_number', user.credit_card_number);
-                response.cookie('credit_card_expiration', user.credit_card_expiration);
-                response.cookie('credit_card_cvv', user.credit_card_cvv);
+                user.name ? response.cookie('name', user.name) : '';
+                user.phone ? response.cookie('phone', user.phone) : '';
+                user.email ? response.cookie('email', user.email) : '';
+                user.preferred_diner ? response.cookie('preferred_diner', user.preferred_diner) : '';
+                user.home_address ? response.cookie('home_address', user.home_address) : '';
+                user.billing_address ? response.cookie('billing_address', user.billing_address) : '';
+                user.credit_card_number ? response.cookie('credit_card_number', user.credit_card_number) : '';
+                user.credit_card_expiration ? response.cookie('credit_card_expiration', user.credit_card_expiration) : '';
+                user.credit_card_cvv ? response.cookie('credit_card_cvv', user.credit_card_cvv) : user.credit_card_cvv;
 
                 response.redirect('./reservation');
             }  else {

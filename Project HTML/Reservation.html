@@ -47,9 +47,9 @@
             let email = decodeURIComponent(getCookie('email'));
             let phone = decodeURIComponent(getCookie('phone'));
 
-            document.getElementById('name').value = name ? name : '';
-            document.getElementById('email').value = email ? email : '';
-            document.getElementById('phone').value = phone ? phone : '';
+            document.getElementById('name').value = name ? name != 'undefined' ? name : '' : '';
+            document.getElementById('email').value = email ? email != 'undefined' ? email : '' : '';
+            document.getElementById('phone').value = phone ? phone != 'undefined' ? phone : '' : '';
 
 
             const queryString = window.location.search;
@@ -71,6 +71,27 @@
         
         }
 
+        function isHighTrafficDay(event) {
+            
+            let day = new Date(document.getElementById('date').value).getDay();
+            
+            if(day == 6 || day == 5) {
+                document.getElementById('credit_card_info').style = 'display: block;';
+                document.getElementById('crednum').setAttribute('required','required');
+                document.getElementById('creddate').setAttribute('required','required');
+                document.getElementById('credcode').setAttribute('required','required');
+            } else {
+                document.getElementById('credit_card_info').style = 'display: none;';
+                document.getElementById('crednum').removeAttribute('required');
+                document.getElementById('creddate').removeAttribute('required');
+                document.getElementById('credcode').removeAttribute('required');
+            }
+
+            
+
+
+        }
+
     </script>
     <div class = "navigator">
         <a class = "profile" id="prof" href="/profile" style="text-align: 10px">Profile</a>
@@ -78,6 +99,7 @@
     <header>
         <h1 style="color: black;font-size: 70px; text-decoration: underline; text-align: center;">Find Your Reservation Today!</h1>
     </header>
+    <a href="./logout">Logout!</a>
     <p style="font-size: larger; color: black">
        Guest users click <a href="/register">here</a> to register!
      </p>
@@ -101,8 +123,8 @@
                     <br><br>
 
                     <label>Date and Time</label>
-                    <input type="datetime-local" id="date" name="date" onselect="highTraffic()" required>
-                    <p id = "highDay" style="display: none">High Traffic Date</p>
+                    <input type="datetime-local" id="date" name="date" onchange="isHighTrafficDay(event)" required>
+                    
                     <script>
                         function highTraffic() {
                             const d = new Date(document.getElementById("date"));
@@ -117,7 +139,13 @@
                     <label>Number of Guests</label>
                     <input type="number" id="number" name="number" required>
                     <br><br>
-
+                    <div id="credit_card_info" style="display: none;">
+                        <p id = "highDay">High Traffic Date</p>
+                        <p style="color: yellow"> A fee of $10 will be incurred for no show on weekends and holidays.</p>
+                        <input type="text" id="crednum" placeholder="Card Number" size="20"><br>
+                        <input type="text" id="creddate" placeholder="Expiration Date(MMYYYY)" size="20"><br>
+                        <input type="text" id="credcode" placeholder="CVV (3 digit back of card)" size="20"><br><br>
+                    </div>
                     <button class="button" type="reset">Reset</button>
                     <button class="button" type="submit">Search</button>
                 </fieldset>
@@ -127,7 +155,3 @@
     </body>
     
 </html>
-
-<!-- <input type="text" id="crednum" placeholder="Card Number" size="20" style="display: none" required>
-<input type="text" id="creddate" placeholder="Expiration Date(MMYYYY)" size="20" style="display: none" required>
-<input type="text" id="credcode" placeholder="CVV (3 digit back of card)" size="20" style="display: none" required><br> -->

@@ -56,7 +56,7 @@
 
     window.onload = function() {
 
-        let name = decodeURIComponent(getCookie('name'));
+        let name = decodeURIComponent(getCookie('name')) ? decodeURIComponent(getCookie('name')) : '';
         let phone = decodeURIComponent(getCookie('phone'));
         let ShippingAd = decodeURIComponent(getCookie('home_address'));
         let BillingAd = decodeURIComponent(getCookie('billing_address'));
@@ -65,14 +65,16 @@
         let creddate = decodeURIComponent(getCookie('credit_card_expiration'));
         let credcode = decodeURIComponent(getCookie('credit_card_cvv'));
 
-        document.getElementById('name').value = name ? name : '';
-        document.getElementById('phone').value = phone ? phone : '';
-        document.getElementById('ShippingAd').value = ShippingAd ? ShippingAd : '';
-        document.getElementById('BillingAd').value = BillingAd ? BillingAd : '';
+
+
+        document.getElementById('name').value = name ? name != 'undefined' ? name : '' : '';
+        document.getElementById('phone').value = phone ? phone != 'undefined' ? phone : '' : '';
+        document.getElementById('ShippingAd').value = ShippingAd ? ShippingAd != 'j:null' ? ShippingAd : '' : '';
+        document.getElementById('BillingAd').value = BillingAd ? BillingAd != 'j:null' ? BillingAd : '' : '';
         document.getElementById('dinerNum').value = DineNum ? DineNum : '';
-        document.getElementById('crednum').value = crednum ? crednum : '';
-        document.getElementById('creddate').value = creddate ? creddate : '';
-        document.getElementById('credcode').value = credcode ? credcode : '';
+        document.getElementById('crednum').value = crednum ? crednum != 'j:null' ? crednum : '' : '';
+        document.getElementById('creddate').value = creddate ? creddate != 'j:null' ? creddate : '' : '';
+        document.getElementById('credcode').value = credcode ? credcode != 'j:null' ? credcode : '' : '';
     }
 
 </script>
@@ -104,25 +106,25 @@
                 <input type="checkbox" id="myCheck" onclick="myFunction()">  
                 <label for="myCheck">Same as Shipping Address:</label>   
                 <br/>
-                <textarea id="BillingAd" placeholder="Address, City, State, Zip Code" size = "100" required></textarea><br/>
+                <textarea name="billing_address" id="BillingAd" placeholder="Address, City, State, Zip Code" size = "100" required></textarea><br/>
             </div>
-            <div class = "dinerNumber" id = "dinerNum">
+            <div class="dinerNumber" name="diner_number">
                 <h2>Preffered Diner #: </h2> 
-                <input type = "Number" for="dinerNum">
+                <input type = "Number" id="dinerNum" name="preferred_diner" readonly >
             </div>
             <div class = "earnedPoints">
                 <h2>Earned Points: </h2>
             </div>
             <div class = "paymentMethod">
                 <h2>Prefered Payment Method: </h2>
-                <input type="checkbox" id="cash" >  
-                <label id="cashcheck">Cash</label>   
+                <input type="checkbox" id="cash">  
+                <label id="cashcheck">Cash</label>
                 <br/>
                 <input type="checkbox" id="credit" onclick="creditInfo()">  
                 <label id="creditcheck">Credit</label> 
-                <input type="text" id="crednum" placeholder="Card Number" size="20" style="display: none">
-                <input type="text" id="creddate" placeholder="Expiration Date(MMYYYY)" size="20" style="display: none">
-                <input type="text" id="credcode" placeholder="CVV (3 digit back of card)" size="20" style="display: none"><br>  
+                <input type="text" name="crednum" id="crednum" placeholder="Card Number" size="20" style="display: none">
+                <input type="text" name="creddate" id="creddate" placeholder="Expiration Date(MMYYYY)" size="20" style="display: none">
+                <input type="text" name="credcode" id="credcode" placeholder="CVV (3 digit back of card)" size="20" style="display: none"><br>  
                 <input type="checkbox" id="check">  
                 <label id="checkcheck">Check</label>   
                 <br/>

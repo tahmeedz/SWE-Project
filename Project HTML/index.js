@@ -45,8 +45,26 @@ app.get('/profile', (req, res) => {
     res.sendFile(path.join(__dirname, './profile_page.html'));
 });
 
+app.get('/logout', (req, res) => { 
+    res.sendFile(path.join(__dirname, './logout.html'));
+});
+
 app.post('/updateProfile', (req, res) => {
-    console.log(req.body.phone);
+    console.log(req.body);
+
+    let param = req.body;
+
+    let query = 'UPDATE users SET name="' + param.name + '", phone="' + param.phone + '", home_address="' + param.address;
+    query+='", billing_address="' + param.billing_address + '", credit_card_number="' + param.crednum + '", credit_card_expiration="' + param.creddate;
+    query+='", credit_card_cvv="' + param.credcode;
+    query+='" WHERE preferred_diner="' + param.preferred_diner + '"';
+
+    db.runQuery(query);
+
+    res.redirect('/logout');
+
+    // db.runQuery();
+
 });
 
 app.post('/registerUser', (req, res) => { 
