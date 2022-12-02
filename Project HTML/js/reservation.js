@@ -1,11 +1,14 @@
 const db = require("./db_connection");
 
-module.exports = {
-    addBooking: function(ppl) {
+(function() {
+    console.log('asdad')
+});
 
+
+module.exports = {
+    addBooking: function(ppl, res) {
 
         let allTablesMap = new Map();
-        let tablesToUse = new Map();
 
         let callbackAllTables = function(err, results, fields) {
             // console.log('gotcha again!');
@@ -26,15 +29,20 @@ module.exports = {
             }
             console.log('after for loop');
             let tablesInUse = findTable(allTablesMap, ppl);
+            if(!tablesInUse) {
+                res.redirect('./reservation?tables_booked=No Reservations Available!');
+                return;
+            }
             db.runQuery('UPDATE restaurant_table set vacant=0 where table_number IN ('+ tablesInUse + ')')
+
+            tablesInUse.sort(function(a, b) {
+                return a - b;
+              });
+
+            res.redirect('./reservation?tables_booked=' + tablesInUse);
+            
         }
         this.getAllAvailableTables(callbackAllTables);
-
-        // console.log(allTables)
-
-        // if(ppl >= 8) {
-
-        // }
 
     },
 
@@ -45,7 +53,7 @@ module.exports = {
 
  };
 
- function findTable(mapOfAvailableTables, capacity) {
+ function findTable(mapOfAvailableTables, capacity, res) {
     let tableIdsInUse = [];
 
     while(capacity >=1) {
@@ -53,7 +61,7 @@ module.exports = {
 
             let largestTableAvailable = Array.from(mapOfAvailableTables.keys()).pop()
             if(!largestTableAvailable) {
-                throw Error("can't fucking do it!");
+                return;
             }
             let tables = mapOfAvailableTables.get(largestTableAvailable);
             let tableId = tables[0];
@@ -72,9 +80,15 @@ module.exports = {
                     largestTableAvailable = Array.from(mapOfAvailableTables.keys()).pop()
                     tables = mapOfAvailableTables.get(largestTableAvailable);
                 }
+
+                if(!tables) return;
                 let tableId = tables[0];
-                tableIdsInUse.push(tableId);
-                tables.shift(0);
+                if(tableId) {
+                    tableIdsInUse.push(tableId);
+                    tables.shift(0);
+                }
+                
+                
                 if(mapOfAvailableTables.get(capacity) && mapOfAvailableTables.get(capacity).length == 0) {
                     mapOfAvailableTables.delete(capacity);
                 }
@@ -83,20 +97,7 @@ module.exports = {
                 capacity++;
             }
         }
-        // else {
-        //     if(isEvenNumber(capacity)) {
-        //         let tables = mapOfAvailableTables.get(capacity);
-        //         if(!tables) {
-        //             break;
-        //         }
-        //         let tableId = tables[0];
-        //         tableIdsInUse.push(tableId);
-        //         tables.shift(0);
-        //         capacity-=capacity;
-        //     } else {
-        //         capacity++;
-        //     }
-        // }
+
     }
     console.log(mapOfAvailableTables);
     console.log('======================');
@@ -114,3 +115,5 @@ function isEvenNumber(number) {
         return false;
     }
 }
+
+

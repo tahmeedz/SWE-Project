@@ -7,32 +7,83 @@
     <title>Profile Page</title>
     <link rel="stylesheet" href="css/Profile_Page.css">
 </head>
+
+<script>
+    function creditInfo() {
+    var checkBox = document.getElementById("credit");    
+    var creditnum = document.getElementById("crednum");
+    var creditdate = document.getElementById("creddate");  
+    var creditcode = document.getElementById("credcode");
+    if (checkBox.checked == true){
+        creditnum.style.display = "block";
+        creditdate.style.display = "block";
+        creditcode.style.display = "block";  
+        }   
+    }
+
+    function myFunction() {
+        var checkBox = document.getElementById("myCheck");  
+        var textShip = document.getElementById("ShippingAd");  
+        var textBil = document.getElementById("BillingAd");  
+        if (checkBox.checked == true){
+                textBil.value=textShip.value;  
+        } else {
+                textBil.value="";
+        }
+    }
+</script>
+
 <body>
     <div class = "navigator">
-        <a class = "home" href="/">HOME</a>
+        <a class = "reservation" href="/">Reservation</a>
     </div>
     <div class = "header">
         <h1>Account Overview</h1>
     </div>
-    <div class = "container">
-        <div class = "userName">
-            <h2>Name: </h2>
-        </div>
-        <div class = "mailAddress" \>
-            <h2>Mailing Address: </h2>
-        </div>
-        <div class = "billuserName">
-            <h2>Billing Address: </h2>
-        </div>
-        <div class = "dinerNumber">
-            <h2>Preffered Diner #: </h2> 
-        </div>
-        <div class = "earnedPoints">
-            <h2>Earned Points: </h2>
-        </div>
-        <div class = "paymentMethod">
-            <h2>Prefered Payment Method: </h2>
-        </div>
+    <form method="POST" action="/updateProfile" >
+        <div class = "container">
+            <div class = "userName">
+                <h2>Name: </h2>
+                <input type="text" id="name" name="name" placeholder="Name" size="50" required><br><br>
+            </div>
+            <div class = "phoneNumber">
+                <h2>Phone Number: </h2>
+                <input type="number" id="phone" name="phone" placeholder="Phone" style="width: 170px;" required><br><br>
+            </div>
+            <div class = "mailAddress" \>
+                <h2>Address: </h2>
+                <textarea id="ShippingAd" name="address" placeholder="Address, City, State, Zip Code" size = "100" required></textarea><br/>
+            </div>
+            <div class = "billuserName">
+                <h2>Billing Address: </h2>
+                <input type="checkbox" id="myCheck" onclick="myFunction()">  
+                <label for="myCheck">Same as Shipping Address:</label>   
+                <br/>
+                <textarea id="BillingAd" placeholder="Address, City, State, Zip Code" size = "100" required></textarea><br/>
+            </div>
+            <div class = "dinerNumber">
+                <h2>Preffered Diner #: </h2> 
+            </div>
+            <div class = "earnedPoints">
+                <h2>Earned Points: </h2>
+            </div>
+            <div class = "paymentMethod">
+                <h2>Prefered Payment Method: </h2>
+                <input type="checkbox" id="cash" >  
+                <label id="cashcheck">Cash</label>   
+                <br/>
+                <input type="checkbox" id="credit" onclick="creditInfo()">  
+                <label id="creditcheck">Credit</label> 
+                <input type="text" id="crednum" placeholder="Card Number" size="20" style="display: none">
+                <input type="text" id="creddate" placeholder="Expiration Date(MMYYYY)" size="20" style="display: none">
+                <input type="text" id="credcode" placeholder="CVV (3 digit back of card)" size="20" style="display: none"><br>  
+                <input type="checkbox" id="check">  
+                <label id="checkcheck">Check</label>   
+                <br/>
+            </div>
+        <br>
+        <button class="button" type="submit">Save</button>
+    </form>
     </div>
 </body>
 </html>

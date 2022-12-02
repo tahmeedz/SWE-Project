@@ -17,26 +17,35 @@ module.exports = {
         return connection.query(query, callback);
     },
 
-    addUser: function(username, password) {
+    updateUser: function(preferred_diner, email, ) {
+
+    },
+
+    addUser: function(username, password, email, phone) {
         connection.query("INSERT INTO users (username, password) VALUES (\"" + username + "\", \"" + password + "\");", function (error, results, fields) {
             if (error) throw error;
         });
     },
     
-    isValidUser: function(username, password, response) {
+    login: function(username, password, response) {
         let isValid = false;
 
         connection.query("SELECT * FROM users where username=\"" + username + "\" AND password=\"" + password + "\"", function (error, results, fields) {
             if (error) throw error;
 
             if(results.length > 0) {
-                console.log('setting true...');
+                let user = results[0];
+                response.cookie('name', user.name);
+                response.cookie('phone', user.phone);
+                response.cookie('email', user.email);
+                response.cookie('credit_card_number', user.credit_card_number);
+                response.cookie('credit_card_expiration', user.credit_card_expiration);
+                response.cookie('credit_card_cvv', user.credit_card_cvv);
+
                 response.redirect('./reservation');
             }  else {
                 response.redirect("./login?error=invalid_username_password");
             }
         });
-
-        return true;
     }
 };

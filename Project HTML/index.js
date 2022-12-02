@@ -47,6 +47,9 @@ app.get('/profile', (req, res) => {
     res.sendFile(path.join(__dirname, './profile_page.html'));
 });
 
+app.post('/updateProfile', (req, res) => {
+    console.log(req.body.phone);
+});
 
 app.post('/registerUser', (req, res) => { 
 
@@ -61,12 +64,17 @@ app.post('/registerUser', (req, res) => {
 });
 
 app.post('/reserve', (req, res) => {
-    reservation.addBooking(req.body.number);
+    reservation.addBooking(req.body.number, res);
+    // let date = req.body.date;
+    // console.log(date);
+    // d = date.getDay();
+    // console.log("Yes");
 });
 
 app.post('/login', (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
+    db.login(username, password, res);
 });
 
 

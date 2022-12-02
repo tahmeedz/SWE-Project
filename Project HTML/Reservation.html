@@ -19,99 +19,101 @@
                 margin-top: 7%;
                 color: white;
             }
+            #overlay_success{
+                padding: 50px;
+                width: fit-content;
+                border-radius: 20px;
+                margin-left: 44%;
+            }
         </style>
     </head>
     <script>
 
-        // var tables = [[2, 10], [4, 10], [6, 10], [8, 10]];
+        function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        }
 
-        // window.onload = function() {
+        window.onload = function() {
+
+            let name = decodeURIComponent(getCookie('name'));
+            let email = decodeURIComponent(getCookie('email'));
+            let phone = decodeURIComponent(getCookie('phone'));
+
+            document.getElementById('name').value = name ? name : '';
+            document.getElementById('email').value = email ? email : '';
+            document.getElementById('phone').value = phone ? phone : '';
+
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const bookedTables = urlParams.get('tables_booked')
             
-        //     const reservationForm = document.getElementById("reservation-form");
+            let text = 'Booked Tables Successfully </br></br></br>' + bookedTables.replaceAll(',', '</br>');
+            if(bookedTables) {
 
-        //     reservationForm.addEventListener("submit", reservation);
+                if(bookedTables.startsWith('No')) {
+                    text = bookedTables;
+                } 
 
-        //     function reservation(event) {
-        //         event.preventDefault();
+                let element = document.getElementById('overlay_success');
+                element.style = element.style + ';background-color: #b0ff00b5;'
+                element.innerHTML = text;
+                element.display = 'block';
+            }
+        
+        }
 
-        //         const name = event.target[0].value;
-        //         const phoneNumber = event.target[1].value;
-        //         const email = event.target[2].value;
-        //         const date = event.target[3].value;
-        //         const time = event.target[4].value;
-        //         var numOfPpl = event.target[5].value;
-            
-        //         let tablesEligible = [];
-        //         var counter = 0;
-        //         while(numOfPpl > 0) {
-
-        //             if(numOfPpl <= 2 && tables[0][1]>0) {
-        //                 tablesEligible.push(2);
-        //                 tables[0][1]--;
-        //                 numOfPpl-=2;
-        //             } else if(numOfPpl > 2 && numOfPpl <= 4 && tables[1][1]>0) {
-        //                 tablesEligible.push(4);
-        //                 tables[1][1]--;
-        //                 numOfPpl-=4;
-        //             } else if (numOfPpl > 4 && numOfPpl <= 6 && tables[2][1]>0) {
-        //                 tablesEligible.push(6);
-        //                 tables[2][1]--;
-        //                 numOfPpl-=6;
-        //             } else if (numOfPpl > 6 && tables[3][1]>0) {
-        //                 tablesEligible.push(8);
-        //                 tables[3][1]--;
-        //                 numOfPpl-=8;
-        //             }else if (tables[0][1] <= 0 && tables[1][1] <= 0  && tables[2][1] <= 0 && tables[3][1] <= 0  ){
-        //                 break;
-        //             }
-        //             // console.log(tables);
-        //             console.log(tablesEligible);
-        //             // setTimeout(function() {}, 5000);
-        //             counter++;
-        //             if(counter > 50){
-        //                 break;
-        //             }
-
-        //         }
-
-
-
-                
-        //     }
-        // }
     </script>
 
     <header>
         <h1 style="color: black;font-size: 70px; text-decoration: underline; text-align: center;">Find Your Reservation Today!</h1>
     </header>
     <body align = 'center'>
-        <form id="reservation-form" action="/reserve" method="POST">
-            <fieldset>
-                <label>Name</label>
-                <input type="text" id='name' name="name" required>
-                <br><br>
+        <div id="overlay_success">
+            <form id="reservation-form" action="/reserve" method="POST">
+                <fieldset>
+                    <label>Name</label>
+                    <input type="text" id='name' name="name" placeholder="Name"   required>
+                    <br><br>
 
-                <label>Phone Number</label>
-                <input type="text" id="phone" name="phone" required>
-                <br><br>
-                
-                <label>Email Address</label>
-                <input type="text" id="email" name="email" required>
-                <br><br>
+                    <label>Phone Number</label>
+                    <input type="number" id="phone" name="phone" min="10" placeholder="Phone Number" required>
+                    <br><br>
+                    
+                    <label>Email Address</label>
+                    <input type="text" id="email" name="email" placeholder="Email" required>
+                    <br><br>
 
-                <label>Date and Time</label>
-                <input type="datetime-local" id="date" name="date" required>
-                <br><br>
+                    <label>Date and Time</label>
+                    <input type="datetime-local" id="date" name="date" onselect="highTraffic()" required>
+                    <p id = "highDay" style="display: none">High Traffic Date</p>
+                    <script>
+                        function highTraffic() {
+                            const d = new Date(document.getElementById("date"));
+                            let day = d.getDay();
+                            if(day == 6){
+                                document.getElementById("highDay").style.display = "block";
+                            }
+                        }
+                        </script>
+                    <br><br>
 
-                <label>Number of Guests</label>
-                <input type="number" id="number" name="number" required>
-                <br><br>
+                    <label>Number of Guests</label>
+                    <input type="number" id="number" name="number" required>
+                    <br><br>
 
-                <button class="button" type="reset">Reset</button>
-                <button class="button" type="submit">Search</button>
-            </fieldset>
-        </form>
+                    <button class="button" type="reset">Reset</button>
+                    <button class="button" type="submit">Search</button>
+                </fieldset>
+            </form>
+        </div>
 
     </body>
     
 </html>
+
+<!-- <input type="text" id="crednum" placeholder="Card Number" size="20" style="display: none" required>
+<input type="text" id="creddate" placeholder="Expiration Date(MMYYYY)" size="20" style="display: none" required>
+<input type="text" id="credcode" placeholder="CVV (3 digit back of card)" size="20" style="display: none" required><br> -->
